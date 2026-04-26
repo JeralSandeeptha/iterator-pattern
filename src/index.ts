@@ -1,12 +1,38 @@
-import { ShapeFactory } from "./factory/ShapeFactory.js";
-import { EShape } from "./types/EShape.js";
-
 // client code
-// client don't need to know about the specific classes, just use the factory to create shapes and call their methods
-const circle = ShapeFactory.createShape(EShape.Circle);
-console.log("Circle Area:", circle.area());
-console.log("Circle Perimeter:", circle.perimeter());
+// get sql databases and use them without createing their objects directly
+import { NoSQLDatabaseFactory } from "./factory/factories/NoSQLDatabaseFactory.js";
+import { SQLDatabaseFactory } from "./factory/factories/SQLDatabaseFactory.js";
 
-const triangle = ShapeFactory.createShape(EShape.Triangle);
-console.log("Triangle Area:", triangle.area());
-console.log("Triangle Perimeter:", triangle.perimeter());
+// using NoSQL database factory to create NoSQL databases
+const noSqlDatabaseFactory = new NoSQLDatabaseFactory();
+
+const mongoDB = noSqlDatabaseFactory.createDatabase("MongoDb");
+mongoDB.connect(); 
+mongoDB.disconnect();
+
+const mariaDB = noSqlDatabaseFactory.createDatabase("MariaDb");
+mariaDB.connect();
+mariaDB.disconnect();
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+// using SQL database factory to create SQL databases
+const sqlDatabaseFactory = new SQLDatabaseFactory();
+
+const mySQLDatabase = sqlDatabaseFactory.createDatabase("MySql");
+mySQLDatabase.connect();
+mySQLDatabase.disconnect();
+
+const postgreSQLDatabase = sqlDatabaseFactory.createDatabase("PostgreSql");
+postgreSQLDatabase.connect();
+postgreSQLDatabase.disconnect();
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
